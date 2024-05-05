@@ -18,7 +18,8 @@ routers.get('/deportes', (req, res) => {
 //ruta agregar recibe y agrega a la lista de datos el
 routers.get('/agregar', (req, res) => {
     const data = JSON.parse(fs.readFileSync(path.join(__dirname, '../assets/data/data.json')));
-    const { nombre, precio } = req.body;
+    const { nombre, precio } = req.query;
+    res.send (`nombre ${nombre} precio ${precio}`);
     data.deportes.push({ nombre, precio });
     fs.writeFileSync(path.join(__dirname, '../assets/data/data.json'), JSON.stringify(data));
     res.send('ok');
