@@ -1,4 +1,5 @@
 import express from 'express';
+import routers from './routers/router.js';
 import fs from 'fs';
 const app=express();
 const port = process.env.PORT || 3000;
@@ -7,6 +8,6 @@ const port = process.env.PORT || 3000;
 app.use(express.static('assets'));
 
 //rutas
-app.get('/', (req, res) => res.sendFile( path.join(__dirname,'views/index.html')));
+app.use('/', routers);
 
 app.listen(port, console.log(`Example app listening on port http://localhost:${port}`));
