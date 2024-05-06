@@ -23,4 +23,23 @@ routers.get('/agregar', (req, res) => {
 
 });
 
+//ruta editar, permite cambiar el valor del precio
+routers.get("/editar", (req, res) => {
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, '../assets/data/data.json')));
+    const { nombre, precio } = req.query;
+    data.deportes.forEach((d) => {
+        if (d.nombre === nombre) {
+            d.precio = precio
+        }
+    });
+    fs.writeFileSync(path.join(__dirname, '../assets/data/data.json'), JSON.stringify({ data }));       
+});
+
+//ruta eliminar elimina el deporte de la lista
+routers.get("/eliminar", (req, res) => {
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, '../assets/data/data.json')));
+    const { nombre } = req.query;
+    data.deportes = data.deportes.filter((d) => d.nombre !== nombre);
+    fs.writeFileSync(path.join(__dirname, '../assets/data/data.json'), JSON.stringify({ data }));
+});
 export default routers;
